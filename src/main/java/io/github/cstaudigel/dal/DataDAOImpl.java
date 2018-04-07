@@ -28,9 +28,12 @@ public class DataDAOImpl implements DataDAO {
      */
     @Override
     public boolean createPassword(String password) {
-        String sql = "INSERT INTO PASSWORDS (P_TEXT) VALUE (?);";
+        String sql = "INSERT INTO PASSWORDS (P_TEXT) VALUES (?);";
 
-        return jdbcTemplate.update(sql, password) == 1;
+        if (jdbcTemplate.update(sql, password) == 1) {
+            saveDatabase();
+            return true;
+        } else return false;
     }
 
     /**
@@ -41,9 +44,12 @@ public class DataDAOImpl implements DataDAO {
      */
     @Override
     public boolean deletePassword(String password) {
-        String sql = "DELETE FROM PASSWORD WHERE T_TEXT = ?;";
+        String sql = "DELETE FROM PASSWORDS WHERE T_TEXT = ?;";
 
-        return jdbcTemplate.update(sql, password) == 1;
+        if (jdbcTemplate.update(sql, password) == 1) {
+            saveDatabase();
+            return true;
+        } else return false;
     }
 
     /**
@@ -54,7 +60,7 @@ public class DataDAOImpl implements DataDAO {
      */
     @Override
     public boolean checkPassword(String password) {
-        String sql = "SELECT * FROM PASSWORD WHERE T_TEXT = ?;";
+        String sql = "SELECT * FROM PASSWORDS WHERE T_TEXT = ?;";
 
         List<Password> results = jdbcTemplate.query(sql,
                 (rs, rowNum) ->
@@ -75,7 +81,10 @@ public class DataDAOImpl implements DataDAO {
     public boolean createNote(String title, String content, Date creationTime) {
         String sql = "INSERT INTO NOTES (N_TITLE, N_CONTENT, N_DATE) VALUES (?, ?, ?);";
 
-        return jdbcTemplate.update(sql, new Object[] { title, content, creationTime}) == 1;
+        if (jdbcTemplate.update(sql, new Object[] {title, content, creationTime}) == 1) {
+            saveDatabase();
+            return true;
+        } else return false;
     }
 
     /**
@@ -88,7 +97,10 @@ public class DataDAOImpl implements DataDAO {
     public boolean deleteNote(int id) {
         String sql = "DELETE FROM NOTES WHERE N_ID = ?;";
 
-        return jdbcTemplate.update(sql, id) == 1;
+        if (jdbcTemplate.update(sql, id) == 1) {
+            saveDatabase();
+            return true;
+        } else return false;
     }
 
     /**
@@ -142,5 +154,19 @@ public class DataDAOImpl implements DataDAO {
         jdbcTemplate.execute(sql);
 
         return true;
+    }
+
+    /**
+     * get all passwords from database
+     *
+     * @return
+     */
+    @Override
+    public List<Password> getAllPasswords() {
+        String sql = "SELECT * FROM PASSWORDS;";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Password(
+                rs.getString("P_TEXT")
+        ));
     }
 }

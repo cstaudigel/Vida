@@ -1,5 +1,9 @@
 package io.github.cstaudigel.service;
 
+import io.github.cstaudigel.domain.Password;
+
+import java.util.List;
+
 public interface DataService {
 
     /**
@@ -47,4 +51,16 @@ public interface DataService {
      * @return
      */
     boolean deletePassword(String password, String adminPassword);
+
+    /**
+     * returns all passwords in database
+     * @return
+     */
+    List<Password> getPasswords(String admin);
+
+    /**
+     * save database to disk
+     * @return
+     */
+    boolean saveDatabase();
 }

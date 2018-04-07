@@ -1,11 +1,14 @@
 package io.github.cstaudigel.service;
 
 import io.github.cstaudigel.dal.DataDAO;
+import io.github.cstaudigel.domain.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DataServiceImpl implements DataService {
@@ -88,5 +91,28 @@ public class DataServiceImpl implements DataService {
     public boolean deletePassword(String password, String adminPassword) {
         if (checkAdminPassword(adminPassword)) return dataDAO.deletePassword(password);
         else return false;
+    }
+
+    /**
+     * returns all passwords in database
+     *
+     * @param admin
+     * @return
+     */
+    @Override
+    public List<Password> getPasswords(String admin) {
+
+        if (checkAdminPassword(admin)) return dataDAO.getAllPasswords();
+        else return new ArrayList<>();
+    }
+
+    /**
+     * save database to disk
+     *
+     * @return
+     */
+    @Override
+    public boolean saveDatabase() {
+        return dataDAO.saveDatabase();
     }
 }

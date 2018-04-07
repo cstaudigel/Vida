@@ -1,6 +1,7 @@
 package io.github.cstaudigel.dal;
 
 import io.github.cstaudigel.domain.Note;
+import io.github.cstaudigel.domain.Password;
 
 import java.sql.Date;
 import java.util.List;
@@ -63,4 +64,10 @@ public interface DataDAO {
      * @return
      */
     boolean saveDatabase();
+
+    /**
+     * get all passwords from database
+     * @return
+     */
+    List<Password> getAllPasswords();
 }

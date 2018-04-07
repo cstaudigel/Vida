@@ -1,11 +1,15 @@
 package io.github.cstaudigel.controller;
 
+import io.github.cstaudigel.domain.Password;
 import io.github.cstaudigel.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class DataController {
@@ -24,7 +28,7 @@ public class DataController {
         return "notes";
     }
 
-    @RequestMapping(value = "/createPassword/")
+    @RequestMapping(value = "/createPassword")
     public String createPassword(@RequestParam String password,
                                  @RequestParam String admin) {
         dataService.createPassword(password, admin);
@@ -51,5 +55,15 @@ public class DataController {
         } catch (NumberFormatException e) {}
 
         return "notes";
+    }
+
+    @RequestMapping(value = "/passwords/{admin}")
+    public @ResponseBody List<Password> getPasswords(@PathVariable String admin) {
+        return dataService.getPasswords(admin);
+    }
+
+    @RequestMapping(value = "/saveDB")
+    public @ResponseBody boolean saveDatabase() {
+        return dataService.saveDatabase();
     }
 }
