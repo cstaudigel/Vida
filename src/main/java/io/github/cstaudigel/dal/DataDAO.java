@@ -1,7 +1,7 @@
 package io.github.cstaudigel.dal;
 
-import io.github.cstaudigel.domain.Note;
-import io.github.cstaudigel.domain.Password;
+import io.github.cstaudigel.domain.models.Note;
+import io.github.cstaudigel.domain.models.Password;
 
 import java.sql.Date;
 import java.util.List;

@@ -1,7 +1,7 @@
 package io.github.cstaudigel.service;
 
 import io.github.cstaudigel.dal.DataDAO;
-import io.github.cstaudigel.domain.Password;
+import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

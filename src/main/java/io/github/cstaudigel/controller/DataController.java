@@ -1,6 +1,6 @@
 package io.github.cstaudigel.controller;
 
-import io.github.cstaudigel.domain.Password;
+import io.github.cstaudigel.domain.models.Password;
 import io.github.cstaudigel.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

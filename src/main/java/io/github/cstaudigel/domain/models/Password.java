@@ -1,4 +1,4 @@
-package io.github.cstaudigel.domain;
+package io.github.cstaudigel.domain.models;
 
 public class Password {
     private String text;

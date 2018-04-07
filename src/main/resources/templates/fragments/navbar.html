@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Navigation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/navigation/navigation.css}" />
+</head>
+<body>
+    <div th:fragment="navigationBar">
+        <div id="navbar">
+            <ul id="navItems">
+                <li id="title"><a href="/Home">Vida Eterna</a></li>
+                <li><a href="/Ministry">Ministry</a></li>
+                <li><a href="/Contact">Get Involved</a></li>
+                <li><a href="/Rights">Conozca sus Derechos</a></li>
+                <li><a href="/Notes">Las Noticias</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

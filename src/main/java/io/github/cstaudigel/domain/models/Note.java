@@ -1,4 +1,4 @@
-package io.github.cstaudigel.domain;
+package io.github.cstaudigel.domain.models;
 
 import java.sql.Date;
 

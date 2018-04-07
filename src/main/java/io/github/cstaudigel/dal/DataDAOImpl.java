@@ -1,7 +1,7 @@
 package io.github.cstaudigel.dal;
 
-import io.github.cstaudigel.domain.Note;
-import io.github.cstaudigel.domain.Password;
+import io.github.cstaudigel.domain.models.Note;
+import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
