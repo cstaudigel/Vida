@@ -1,6 +1,9 @@
 package io.github.cstaudigel.dal;
 
+import io.github.cstaudigel.domain.Note;
+
 import java.sql.Date;
+import java.util.List;
 
 public interface DataDAO {
 
@@ -32,12 +35,32 @@ public interface DataDAO {
      * @param creationTime
      * @return
      */
-    boolean createPost(String title, String content, Date creationTime);
+    boolean createNote(String title, String content, Date creationTime);
 
     /**
      * delete post from database
      * @param id
      * @return
      */
-    boolean deletePost(String id);
+    boolean deleteNote(int id);
+
+    /**
+     * return all notes in chronological order
+     *
+     * @return
+     */
+    List<Note> getAllNotes();
+
+    /**
+     * return note with specified ID
+     * @param ID
+     * @return
+     */
+    Note getNote(int ID);
+
+    /**
+     * saves database to disk
+     * @return
+     */
+    boolean saveDatabase();
 }

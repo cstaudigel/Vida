@@ -32,19 +32,19 @@ public interface DataService {
      * @param id
      * @return
      */
-    boolean deleteNote(String id);
+    boolean deleteNote(int id, String password);
 
     /**
      * create a posting password
      * @param password
      * @return
      */
-    boolean createPassword(String password);
+    boolean createPassword(String password, String adminPassword);
 
     /**
      * delete a posting password
      * @param password
      * @return
      */
-    boolean deletePassword(String password);
+    boolean deletePassword(String password, String adminPassword);
 }

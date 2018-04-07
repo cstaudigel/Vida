@@ -27,9 +27,7 @@ public class DataController {
     @RequestMapping(value = "/createPassword/")
     public String createPassword(@RequestParam String password,
                                  @RequestParam String admin) {
-        if (dataService.checkAdminPassword(admin)) {
-            dataService.createPassword(password);
-        }
+        dataService.createPassword(password, admin);
 
         return "home";
     }
@@ -37,12 +35,21 @@ public class DataController {
     @RequestMapping(value = "/deletePassword/")
     public String deletePassword(@RequestParam String password,
                                  @RequestParam String admin) {
+        dataService.deletePassword(password, admin);
+
         return "home";
     }
 
     @RequestMapping(value = "/deleteNote/{id}")
     public String deleteNote(@PathVariable String id,
                              @RequestParam String admin) {
+        try {
+            int postID = Integer.parseInt(id);
+
+            dataService.deleteNote(postID, admin);
+
+        } catch (NumberFormatException e) {}
+
         return "notes";
     }
 }

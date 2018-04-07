@@ -1,9 +1,24 @@
 package io.github.cstaudigel.service;
 
+import io.github.cstaudigel.dal.DataDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Component
 public class DataServiceImpl implements DataService {
+
+    private DataDAO dataDAO;
+
+    private final String adminPassword = "adminpassword";
+    private final String superAdminPassword = "superadmin";
+
+    @Autowired
+    public DataServiceImpl(DataDAO dataDAO) {
+        this.dataDAO = dataDAO;
+    }
 
     /**
      * verify admin password
@@ -13,7 +28,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public boolean checkAdminPassword(String password) {
-        return false;
+        return adminPassword.equals(password);
     }
 
     /**
@@ -24,7 +39,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public boolean checkNotePassword(String password) {
-        return false;
+        return dataDAO.checkPassword(password);
     }
 
     /**
@@ -36,7 +51,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public boolean createNote(String title, String content) {
-        return false;
+        return dataDAO.createNote(title, content, Date.valueOf(LocalDate.now()));
     }
 
     /**
@@ -46,8 +61,9 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public boolean deleteNote(String id) {
-        return false;
+    public boolean deleteNote(int id, String password) {
+        if (checkAdminPassword(password)) return dataDAO.deleteNote(id);
+        else return false;
     }
 
     /**
@@ -57,8 +73,9 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public boolean createPassword(String password) {
-        return false;
+    public boolean createPassword(String password, String adminPassword) {
+        if (checkAdminPassword(adminPassword)) return dataDAO.createPassword(password);
+        else return false;
     }
 
     /**
@@ -68,7 +85,8 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public boolean deletePassword(String password) {
-        return false;
+    public boolean deletePassword(String password, String adminPassword) {
+        if (checkAdminPassword(adminPassword)) return dataDAO.deletePassword(password);
+        else return false;
     }
 }
