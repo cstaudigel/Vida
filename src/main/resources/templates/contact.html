@@ -7,5 +7,29 @@
 </head>
 <body>
     <div th:include="fragments/navbar :: navigationBar"></div>
+
+    <form id="newGetInvolved" method="post" th:action="@{/GetInvolved/New}">
+        <table>
+            <tr>
+                <td>What is your name?</td>
+                <td><input type="text" name="name"/></td>
+            </tr>
+            <tr>
+                <td>What is your email address?</td>
+                <td><input type="email" name="email"/></td>
+            </tr>
+            <tr>
+                <td>What is your phone number?</td>
+                <td><input type="tel" name="phone"/></td>
+            </tr>
+            <tr>
+                <td>Any additional comments?</td>
+                <td><input type="text" name="message"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="submit"/></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

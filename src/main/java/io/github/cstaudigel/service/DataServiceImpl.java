@@ -1,6 +1,7 @@
 package io.github.cstaudigel.service;
 
 import io.github.cstaudigel.dal.DataDAO;
+import io.github.cstaudigel.domain.models.InvolvmentRequest;
 import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -114,5 +115,35 @@ public class DataServiceImpl implements DataService {
     @Override
     public boolean saveDatabase() {
         return dataDAO.saveDatabase();
+    }
+
+    /**
+     * create a new 'get involved' request
+     * @param name
+     * @param email
+     * @param phone
+     * @param message
+     * @return
+     */
+    @Override
+    public boolean createInvolvementRequest(String name, String email, String phone, String message) {
+        return dataDAO.createNewGetInvolved(name, email, phone, message);
+    }
+
+    /**
+     * returns all get involved submissions
+     *
+     * @param admin
+     * @return
+     */
+    @Override
+    public List<InvolvmentRequest> getAllGetInvolved(String admin) {
+//        if (checkAdminPassword(admin)) {
+//            return dataDAO.getAllGetInvolved();
+//        } else {
+//            return new ArrayList<>();
+//        }
+
+        return checkAdminPassword(admin) ? dataDAO.getAllGetInvolved() : new ArrayList<>();
     }
 }

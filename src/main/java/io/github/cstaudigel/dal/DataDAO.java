@@ -1,5 +1,6 @@
 package io.github.cstaudigel.dal;
 
+import io.github.cstaudigel.domain.models.InvolvmentRequest;
 import io.github.cstaudigel.domain.models.Note;
 import io.github.cstaudigel.domain.models.Password;
 
@@ -70,4 +71,20 @@ public interface DataDAO {
      * @return
      */
     List<Password> getAllPasswords();
+
+    /**
+     *
+     * @param name
+     * @param email
+     * @param phone
+     * @param message
+     * @return
+     */
+    boolean createNewGetInvolved(String name, String email, String phone, String message);
+
+    /**
+     * return all get involved submissions
+     * @return
+     */
+    List<InvolvmentRequest> getAllGetInvolved();
 }

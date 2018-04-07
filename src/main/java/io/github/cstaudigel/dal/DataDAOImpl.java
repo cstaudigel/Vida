@@ -1,5 +1,6 @@
 package io.github.cstaudigel.dal;
 
+import io.github.cstaudigel.domain.models.InvolvmentRequest;
 import io.github.cstaudigel.domain.models.Note;
 import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,6 +168,40 @@ public class DataDAOImpl implements DataDAO {
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new Password(
                 rs.getString("P_TEXT")
+        ));
+    }
+
+    /**
+     * @param name
+     * @param email
+     * @param phone
+     * @param message
+     * @return
+     */
+    @Override
+    public boolean createNewGetInvolved(String name, String email, String phone, String message) {
+        String sql = "INSERT INTO REQUEST (R_NAME, R_EMAIL, R_PHONE, R_MESSAGE) VALUES (?, ?, ?, ?,);";
+
+        if (jdbcTemplate.update(sql, new Object[] {name, email, phone, message}) == 1) {
+            saveDatabase();
+            return true;
+        } else return false;
+    }
+
+    /**
+     * return all get involved submissions
+     *
+     * @return
+     */
+    @Override
+    public List<InvolvmentRequest> getAllGetInvolved() {
+        String sql = "SELECT * FROM REQUEST ORDER BY R_ID";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new InvolvmentRequest(
+                rs.getString("R_NAME"),
+                rs.getString("R_EMAIL"),
+                rs.getString("R_PHONE"),
+                rs.getString("R_MESSAGE")
         ));
     }
 }

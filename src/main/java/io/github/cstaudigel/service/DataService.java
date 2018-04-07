@@ -1,5 +1,6 @@
 package io.github.cstaudigel.service;
 
+import io.github.cstaudigel.domain.models.InvolvmentRequest;
 import io.github.cstaudigel.domain.models.Password;
 
 import java.util.List;
@@ -63,4 +64,21 @@ public interface DataService {
      * @return
      */
     boolean saveDatabase();
+
+    /**
+     * create a new 'get involved' request
+     * @param name
+     * @param email
+     * @param phone
+     * @param message
+     * @return
+     */
+    boolean createInvolvementRequest(String name, String email, String phone, String message);
+
+    /**
+     * returns all get involved submissions
+     * @param admin
+     * @return
+     */
+    List<InvolvmentRequest> getAllGetInvolved(String admin);
 }
