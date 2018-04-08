@@ -10,7 +10,7 @@
     font-size: 110%;
 }
 
-li a {
+li .navlink {
     display: block;
     text-align: center;
     padding: 14px 16px;
@@ -18,7 +18,7 @@ li a {
     position: relative;
 }
 
-li a:hover {
+li .navlink:hover {
     color: #58595b;
 }
 
@@ -26,11 +26,11 @@ li {
     float: left
 }
 
-a, a:visited {
+.navlink, .navlink:visited {
     text-decoration: none;
     color:white;
 }
-a:active {
+.navlink:active {
     text-decoration: none;
     background-color: #58595b;
     color:white
