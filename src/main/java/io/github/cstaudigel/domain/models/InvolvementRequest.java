@@ -1,17 +1,23 @@
 package io.github.cstaudigel.domain.models;
 
-public class InvolvmentRequest {
+import java.sql.Date;
+
+public class InvolvementRequest {
 
     private String name;
     private String email;
     private String phone;
     private String message;
+    private Date timestamp;
+    private int ID;
 
-    public InvolvmentRequest(String name, String email, String phone, String message) {
+    public InvolvementRequest(String name, String email, String phone, String message, Date timestamp, int ID) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.message = message;
+        this.timestamp = timestamp;
+        this.ID = ID;
     }
 
     public String getName() {
@@ -44,5 +50,21 @@ public class InvolvmentRequest {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

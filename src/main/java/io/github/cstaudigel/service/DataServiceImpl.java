@@ -1,7 +1,8 @@
 package io.github.cstaudigel.service;
 
 import io.github.cstaudigel.dal.DataDAO;
-import io.github.cstaudigel.domain.models.InvolvmentRequest;
+import io.github.cstaudigel.domain.models.InvolvementRequest;
+import io.github.cstaudigel.domain.models.Note;
 import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -54,8 +56,10 @@ public class DataServiceImpl implements DataService {
      * @return true if note was created
      */
     @Override
-    public boolean createNote(String title, String content) {
-        return dataDAO.createNote(title, content, Date.valueOf(LocalDate.now()));
+    public boolean createNote(String title, String content, String password) {
+        if (checkNotePassword(password)) {
+            return dataDAO.createNote(title, content, Date.valueOf(LocalDate.now()));
+        } else return false;
     }
 
     /**
@@ -104,7 +108,7 @@ public class DataServiceImpl implements DataService {
     public List<Password> getPasswords(String admin) {
 
         if (checkAdminPassword(admin)) return dataDAO.getAllPasswords();
-        else return new ArrayList<>();
+        else return new ArrayList<Password>(Arrays.asList(new Password("Incorrect Admin Password")));
     }
 
     /**
@@ -127,7 +131,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public boolean createInvolvementRequest(String name, String email, String phone, String message) {
-        return dataDAO.createNewGetInvolved(name, email, phone, message);
+        return dataDAO.createNewGetInvolved(name, email, phone, message, Date.valueOf(LocalDate.now()));
     }
 
     /**
@@ -137,13 +141,34 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public List<InvolvmentRequest> getAllGetInvolved(String admin) {
+    public List<InvolvementRequest> getAllGetInvolved(String admin) {
 //        if (checkAdminPassword(admin)) {
 //            return dataDAO.getAllGetInvolved();
 //        } else {
 //            return new ArrayList<>();
 //        }
 
-        return checkAdminPassword(admin) ? dataDAO.getAllGetInvolved() : new ArrayList<>();
+        return checkAdminPassword(admin) ? dataDAO.getAllGetInvolved() : new ArrayList<>(Arrays.asList(new InvolvementRequest("","","","Incorrect Admin Password", null, 0)));
+    }
+
+    /**
+     * returns all notes
+     *
+     * @return
+     */
+    @Override
+    public List<Note> getAllNotes() {
+        return dataDAO.getAllNotes();
+    }
+
+    /**
+     * return note
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Note getNote(int id) {
+        return dataDAO.getNote(id);
     }
 }

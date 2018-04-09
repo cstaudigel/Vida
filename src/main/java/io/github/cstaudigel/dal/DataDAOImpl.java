@@ -1,6 +1,6 @@
 package io.github.cstaudigel.dal;
 
-import io.github.cstaudigel.domain.models.InvolvmentRequest;
+import io.github.cstaudigel.domain.models.InvolvementRequest;
 import io.github.cstaudigel.domain.models.Note;
 import io.github.cstaudigel.domain.models.Password;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,10 +179,10 @@ public class DataDAOImpl implements DataDAO {
      * @return
      */
     @Override
-    public boolean createNewGetInvolved(String name, String email, String phone, String message) {
-        String sql = "INSERT INTO REQUEST (R_NAME, R_EMAIL, R_PHONE, R_MESSAGE) VALUES (?, ?, ?, ?,);";
+    public boolean createNewGetInvolved(String name, String email, String phone, String message, Date timestamp) {
+        String sql = "INSERT INTO REQUEST (R_NAME, R_EMAIL, R_PHONE, R_MESSAGE, R_TIMESTAMP) VALUES (?, ?, ?, ?, ?);";
 
-        if (jdbcTemplate.update(sql, new Object[] {name, email, phone, message}) == 1) {
+        if (jdbcTemplate.update(sql, new Object[] {name, email, phone, message, timestamp}) == 1) {
             saveDatabase();
             return true;
         } else return false;
@@ -194,14 +194,16 @@ public class DataDAOImpl implements DataDAO {
      * @return
      */
     @Override
-    public List<InvolvmentRequest> getAllGetInvolved() {
+    public List<InvolvementRequest> getAllGetInvolved() {
         String sql = "SELECT * FROM REQUEST ORDER BY R_ID";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new InvolvmentRequest(
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new InvolvementRequest(
                 rs.getString("R_NAME"),
                 rs.getString("R_EMAIL"),
                 rs.getString("R_PHONE"),
-                rs.getString("R_MESSAGE")
+                rs.getString("R_MESSAGE"),
+                rs.getDate("R_TIMESTAMP"),
+                rs.getInt("R_ID")
         ));
     }
 }

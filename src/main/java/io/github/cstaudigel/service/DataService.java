@@ -1,6 +1,7 @@
 package io.github.cstaudigel.service;
 
-import io.github.cstaudigel.domain.models.InvolvmentRequest;
+import io.github.cstaudigel.domain.models.InvolvementRequest;
+import io.github.cstaudigel.domain.models.Note;
 import io.github.cstaudigel.domain.models.Password;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface DataService {
      * @param content
      * @return true if note was created
      */
-    boolean createNote(String title, String content);
+    boolean createNote(String title, String content, String password);
 
     /**
      * delete a note
@@ -80,5 +81,18 @@ public interface DataService {
      * @param admin
      * @return
      */
-    List<InvolvmentRequest> getAllGetInvolved(String admin);
+    List<InvolvementRequest> getAllGetInvolved(String admin);
+
+    /**
+     * returns all notes
+     * @return
+     */
+    List<Note> getAllNotes();
+
+    /**
+     * return note
+     * @param id
+     * @return
+     */
+    Note getNote(int id);
 }

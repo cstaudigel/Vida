@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create New Note</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/navigation/navigation.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/Vida.css}"/>
+</head>
+<body>
+    <div th:include="fragments/navbar :: navigationBar"></div>
+
+    <div id="header">
+        <h1>Create new note</h1>
+    </div>
+
+    <form id="newNoteForm" method="post" th:action="@{/Notes/Create}">
+        <table>
+            <tr>
+                <td>Note Title:</td>
+                <td><input type="text" name="title"/></td>
+            </tr>
+            <tr>
+                <td>Note Content:</td>
+                <td><textarea rows="10" cols="100" name="content"></textarea></td>
+            </tr>
+            <tr>
+                <td>Administrator Password:</td>
+                <td><input type="password" name="password"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="submit"/></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

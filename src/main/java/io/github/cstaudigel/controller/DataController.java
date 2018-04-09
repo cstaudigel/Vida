@@ -1,7 +1,8 @@
 package io.github.cstaudigel.controller;
 
 import io.github.cstaudigel.domain.models.Password;
-import io.github.cstaudigel.domain.viewmodels.InvolvmentViewModel;
+import io.github.cstaudigel.domain.viewmodels.InvolvementViewModel;
+import io.github.cstaudigel.domain.viewmodels.NotesViewModel;
 import io.github.cstaudigel.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,14 @@ public class DataController {
         this.dataService = dataService;
     }
 
+    @PostMapping(value = "/Notes/Create")
+    public String createNote(@RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             @RequestParam("password") String password) {
 
+        dataService.createNote(title, content, password);
 
-    @RequestMapping(value = "/createNote/")
-    public String createNote() {
-        return "notes";
+        return "redirect:/Notes";
     }
 
     @RequestMapping(value = "/createPassword")
@@ -65,7 +69,7 @@ public class DataController {
         return dataService.saveDatabase();
     }
 
-    @RequestMapping(value ="/GetInvolved/New", method = RequestMethod.POST)
+    @PostMapping(value ="/GetInvolved/Create")
     public String newGetInvolvedRequest(@RequestParam("name") String name,
                                         @RequestParam("email") String email,
                                         @RequestParam("phone") String phone,
@@ -73,11 +77,16 @@ public class DataController {
 
         dataService.createInvolvementRequest(name, email, phone, message);
 
-        return "home";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/GetInvolved/View/{admin}")
-    public @ResponseBody InvolvmentViewModel viewAllGetInvolved(@PathVariable String admin) {
-        return new InvolvmentViewModel(dataService.getAllGetInvolved(admin));
+    public @ResponseBody InvolvementViewModel viewAllGetInvolved(@PathVariable String admin) {
+        return new InvolvementViewModel(dataService.getAllGetInvolved(admin));
+    }
+
+    @GetMapping(value = "/Notes/View")
+    public @ResponseBody NotesViewModel getAllNotes() {
+        return new NotesViewModel(dataService.getAllNotes());
     }
 }
